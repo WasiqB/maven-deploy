@@ -1,0 +1,12 @@
+description: >
+  This job will update and publish the patch version of the release.
+executor: maven
+#parameters:
+#  greeting:
+#    type: string
+#    default: "Hello"
+#    description: "Select a proper greeting"
+steps:
+  - deploy:
+      version-command: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion} versions:commit
+      version-snapshot-command: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit
