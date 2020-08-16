@@ -1,6 +1,20 @@
-# maven-deploy Orb [![CircleCI Build Status](https://circleci.com/gh/WasiqB/maven-deploy.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/WasiqB/maven-deploy) [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/wasiqb/maven-deploy)](https://circleci.com/orbs/registry/orb/wasiqb/maven-deploy) [![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/WasiqB/maven-deploy/master/LICENSE) [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+# maven-deploy Orb 
 
-A description of your orb. Utilize this orb to easily add X to your CI/CD pipeline.
+[![CircleCI Build Status](https://circleci.com/gh/WasiqB/maven-deploy.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/WasiqB/maven-deploy)
+[![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/wasiqb/maven-deploy)](https://circleci.com/orbs/registry/orb/wasiqb/maven-deploy)
+[![GitHub License](https://img.shields.io/badge/license-MIT-lightgrey.svg)](https://raw.githubusercontent.com/WasiqB/maven-deploy/master/LICENSE)
+[![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)
+
+A reusable Maven deploy orb for CircleCI pipeline. Utilize this orb to easily deploy to Maven central from your CI/CD pipeline.
+
+## Inspiration
+
+Maven-deploy is inspired from [github-maven-deploy](https://circleci.com/orbs/registry/orb/github-maven-deploy/github
+-maven-deploy), but it differs with it in following ways,
+
+- It supports parameterization of executor.
+- It does not include build jobs.
+- It supports the password protected GPG keys.
 
 **TODO:**
 Publish your production orb! You may notice the badges above and links to the registry page below are not working yet, once you publish your first production version orb, these will begin to function.

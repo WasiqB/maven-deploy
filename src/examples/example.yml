@@ -1,14 +1,32 @@
 description: >
-  Sample example description.
-  # What will this example document?
-  # Descriptions should be short, simple, and clear.
+  Sample workflow for deploying to Maven central.
 usage:
   version: 2.1
   orbs:
-    foo: bar/foo@1.2.3
+    maven-deploy: wasiqb/maven-deploy@1.0.0
+  executors:
+    maven-deploy/maven:
+      tag: 14
+  mvn-deploy-command: &deploy-command
+    deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
+    context: RELEASE_PROFILE_XYZ
+    executor: maven-deploy/maven
   jobs:
-    build:
-      machine: true
-      steps:
-        - foo/hello:
-            username: "Anna"
+    - maven-deploy/approve-patch-version:
+        type: approval
+    - maven-deploy/approve-minor-version:
+        type: approval
+    - maven-deploy/approve-major-version:
+        type: approval
+    - maven-deploy/deploy-patch-version:
+        requires:
+          - maven-deploy/approve-patch-version
+        <<: *deploy-command
+    - maven-deploy/deploy-minor-version:
+        requires:
+          - maven-deploy/approve-minor-version
+        <<: *deploy-command
+    - maven-deploy/deploy-major-version:
+        requires:
+          - maven-deploy/approve-major-version
+        <<: *deploy-command

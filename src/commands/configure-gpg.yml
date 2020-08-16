@@ -1,11 +1,6 @@
 # How to author commands: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-commands
 description: >
   Configure GPG private keys.
-#parameters:
-#  greeting:
-#    type: string
-#    default: "Hello"
-#    description: "Select a proper greeting"
 steps:
   - run:
       name: Configure GPG private key for signing project artifacts in OSS Sonatype
