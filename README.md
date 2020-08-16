@@ -15,6 +15,7 @@ Maven-deploy is inspired from [github-maven-deploy](https://circleci.com/orbs/re
 - It supports parameterization of executor.
 - It does not include build jobs.
 - It supports the password protected GPG keys.
+- It signs the release tags with GPG keys.
 
 **TODO:**
 Publish your production orb! You may notice the badges above and links to the registry page below are not working yet, once you publish your first production version orb, these will begin to function.
@@ -24,11 +25,9 @@ What to do:
 * Flush out your integration test jobs
 * Merge to `master` with "`[semver:major]`" in the commit subject to publish 1.0.0 of your orb.
 
-
 ## Usage
 
 Example use-cases are provided on the orb [registry page](https://circleci.com/orbs/registry/orb/wasiqb/maven-deploy#usage-examples). Source for these examples can be found within the `src/examples` directory.
-
 
 ## Resources
 
