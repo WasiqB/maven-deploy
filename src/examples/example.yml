@@ -4,26 +4,28 @@ usage:
   version: 2.1
   orbs:
     maven-deploy: wasiqb/maven-deploy@1.0.0
-  mvn-deploy-command: &deploy-command
+  maven-deploy-command: &deploy-command
     deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
     context: RELEASE_PROFILE_XYZ
     executor-version: 14-buster
-  jobs:
-    - maven-deploy/approve-patch-version:
-        type: approval
-    - maven-deploy/approve-minor-version:
-        type: approval
-    - maven-deploy/approve-major-version:
-        type: approval
-    - maven-deploy/deploy-patch-version:
-        requires:
-          - maven-deploy/approve-patch-version
-        <<: *deploy-command
-    - maven-deploy/deploy-minor-version:
-        requires:
-          - maven-deploy/approve-minor-version
-        <<: *deploy-command
-    - maven-deploy/deploy-major-version:
-        requires:
-          - maven-deploy/approve-major-version
-        <<: *deploy-command
+  workflows:
+    sample_flow:
+      jobs:
+        - maven-deploy/approve-patch-version:
+            type: approval
+        - maven-deploy/approve-minor-version:
+            type: approval
+        - maven-deploy/approve-major-version:
+            type: approval
+        - maven-deploy/deploy-patch-version:
+            requires:
+              - maven-deploy/approve-patch-version
+            <<: *deploy-command
+        - maven-deploy/deploy-minor-version:
+            requires:
+              - maven-deploy/approve-minor-version
+            <<: *deploy-command
+        - maven-deploy/deploy-major-version:
+            requires:
+              - maven-deploy/approve-major-version
+            <<: *deploy-command
