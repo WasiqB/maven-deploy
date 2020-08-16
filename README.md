@@ -9,8 +9,8 @@ A reusable Maven deploy orb for CircleCI pipeline. Utilize this orb to easily de
 
 ## Inspiration
 
-Maven-deploy is inspired from [github-maven-deploy](https://circleci.com/orbs/registry/orb/github-maven-deploy/github
--maven-deploy), but it differs with it in following ways,
+Maven-deploy is inspired from [github-maven-deploy](https://circleci.com/orbs/registry/orb/github-maven-deploy/github-maven-deploy), 
+but it differs with it in following ways,
 
 - It supports parameterization of executor.
 - It does not include build jobs.

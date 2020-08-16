@@ -12,6 +12,8 @@ parameters:
     type: string
     description: "Maven deploy command to execute."
 steps:
+  - attach_workspace:
+      at: .
   - configure-gpg
   - configure-git
   - run:
