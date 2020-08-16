@@ -1,10 +1,9 @@
 ---
 name: Bug Report!
-about: File a bug report to let us know what's wrong!
+about: File a bug to let us know what's wrong!
 title: ''
 labels: bug
 assignees: ''
-
 ---
 
 **Orb Version**

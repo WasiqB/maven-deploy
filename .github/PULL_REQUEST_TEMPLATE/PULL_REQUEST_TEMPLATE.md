@@ -7,7 +7,7 @@ assignees: ''
 
 ---
 
-### Checklist
+#### Checklist
 
 <!--
   Thank you for contributing to CircleCI Orbs!
@@ -19,7 +19,7 @@ assignees: ''
 - [ ] Examples have been added for any significant new features
 - [ ] README has been updated, if necessary
 
-### Motivation, Related Issues
+#### Motivation, Related Issues
 
 <!---
   Why is this change required? what problem does it solve?
@@ -27,7 +27,7 @@ assignees: ''
   this repository that this pull request addresses
 -->
 
-### Description
+#### Description
 
 <!---
   Describe your changes in details, preferably in an imperative mood,

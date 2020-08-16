@@ -1,14 +1,25 @@
 version: 2.1
 
 description: >
-  Sample orb description
-  # What will your orb allow users to accomplish?
-  # Descriptions should be short, simple, and informative.
+  Reusable Maven deployment ORB to release artifact to Maven central as well as
+  create Tag on GitHub.
 
-# This information will be displayed in the orb registry and is not mandatory.
+  The following environment variables are required to be available in the
+  CircleCI context:
+
+  - GITHUB_FINGERPRINT: Github's server fingerprint so SSH can trust this host
+  - GITHUB_USER_NAME: Your Github user name
+  - GITHUB_USER_EMAIL: Your Github Email
+  - GPG_SIGNING_KEY: GPG signing key
+  - GPG_PASSPHRASE: GPG key password
+  - SECRING_GPG_ASC_BASE64: Base64 GPG ASCII keyring
+  - SERVER_OSSRH_USERNAME: OSS Sonatype username
+  - SERVER_OSSRH_PASSWORD: OSS Sonatype password
+
+  And following environment variable needs to be in the individual projects settings:
+
+  - GITHUB_COMMIT_KEY: Base64 private SSH key for the corresponding public key mapped to the repository deployment
+  keys on GitHub.
+
 display:
-  home_url: "https://www.website.com/docs"
-  source_url: "https://www.github.com/EXAMPLE_ORG/EXAMPLE_PROJECT"
-
-orbs:
-  hello: circleci/hello-build@0.0.5 # If your orb requires other orbs, you can import them like this. Otherwise remove the "orbs" stanza.
+  source_url: "https://github.com/WasiqB/maven-deploy"

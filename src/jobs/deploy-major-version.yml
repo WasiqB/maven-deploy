@@ -1,0 +1,18 @@
+description: >
+  This job will update and publish the major version of the release.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  deploy-command:
+    type: string
+    description: "Maven deploy command to execute."
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - deploy:
+      version-command: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.0.0 versions:commit
+      version-snapshot-command: mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0-SNAPSHOT versions:commit
+      deploy-command: << parameters.deploy-command >>

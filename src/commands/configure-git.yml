@@ -1,0 +1,13 @@
+# How to author commands: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-commands
+description: >
+  Configure Git to allow pushing the version change and tags back to GitHub.
+steps:
+  - create-gpg-exec-script
+  - configure-ssh-key
+  - run:
+      name: Configure GIT with host fingerprint, user info and SSH key for pushing
+      command: |
+        git config user.name $GITHUB_USER_NAME
+        git config user.email $GITHUB_USER_EMAIL
+        git config gpg.program "./.circleci/gpg-ci"
+        git config user.signingkey $GPG_SIGNING_KEY

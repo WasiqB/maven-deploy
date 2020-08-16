@@ -1,0 +1,8 @@
+# How to author commands: https://circleci.com/docs/2.0/reusing-config/#authoring-reusable-commands
+description: >
+  Configure GPG private keys.
+steps:
+  - run:
+      name: Configure GPG private key for signing project artifacts in OSS Sonatype
+      command: |
+        echo $SECRING_GPG_ASC_BASE64 | base64 --decode | gpg --batch --no-tty --import --yes

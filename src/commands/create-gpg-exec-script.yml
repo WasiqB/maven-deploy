@@ -1,0 +1,9 @@
+description: >
+  This command will create a small GPG executable shell script which will
+  support to use GPG with password protected keys during git operations.
+steps:
+  - run:
+      name: Create GPG shell script executable.
+      command: |
+        echo "gpg --passphrase \"\$GPG_PASSPHRASE\" --batch --no-tty \"\$@\"" > ./.circleci/gpg-ci
+        chmod 755 ./.circleci/gpg-ci
