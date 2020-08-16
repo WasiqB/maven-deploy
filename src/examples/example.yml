@@ -4,13 +4,10 @@ usage:
   version: 2.1
   orbs:
     maven-deploy: wasiqb/maven-deploy@1.0.0
-  executors:
-    maven-deploy/maven:
-      tag: 14
   mvn-deploy-command: &deploy-command
     deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
     context: RELEASE_PROFILE_XYZ
-    executor: maven-deploy/maven
+    executor-version: 14-buster
   jobs:
     - maven-deploy/approve-patch-version:
         type: approval
