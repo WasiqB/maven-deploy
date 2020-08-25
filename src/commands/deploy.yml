@@ -12,30 +12,14 @@ parameters:
     type: string
     description: "Maven deploy command to execute."
 steps:
+  - environment:
+      VERSION_SNAPSHOT_COMMAND: << parameters.version-snapshot-command >>
+      DEPLOY_COMMAND: << parameters.deploy-command >>
+      VERSION_COMMAND: << parameters.version-command >>
   - attach_workspace:
       at: .
   - configure-gpg
   - configure-git
   - run:
       name: Release new version to Maven Central and push new project version to repo
-      command: |
-        echo "Starting new Release snapshot..."
-        << parameters.version-snapshot-command >>
-        MVN_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-        echo "Releasing Snapshot version ${MVN_VERSION}..."
-        << parameters.deploy-command >>
-
-        echo "Starting new Release..."
-        << parameters.version-command >>
-        MVN_VERSION=$(mvn -q -Dexec.executable="echo" -Dexec.args='${project.version}' --non-recursive exec:exec)
-        echo "Releasing version ${MVN_VERSION}..."
-        << parameters.deploy-command >>
-
-        echo "Pushing new version and tag..."
-        rm .circleci/gpg-ci
-        git add pom.xml
-        git commit -m "Released v${MVN_VERSION} [skip ci]"
-        git tag -s v${MVN_VERSION} -m "Released v${MVN_VERSION}"
-        ssh-agent sh -c 'ssh-add ~/.ssh/id_rsa; git push $CIRCLE_REPOSITORY_URL'
-        ssh-agent sh -c 'ssh-add ~/.ssh/id_rsa; git push origin --tags'
-        echo "Successfully released ${MVN_VERSION}"
+      command: << include(scripts/deploy.sh) >>
