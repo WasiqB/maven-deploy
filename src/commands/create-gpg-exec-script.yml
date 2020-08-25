@@ -4,4 +4,4 @@ description: >
 steps:
   - run:
       name: Create GPG shell script executable.
-      command: << include(scripts/create-gpg-exec-script.sh) >>
+      command: <<include(scripts/create-gpg-exec-script.sh)>>

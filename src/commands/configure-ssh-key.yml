@@ -3,4 +3,4 @@ description: >
 steps:
   - run:
       name: Configure SSH deployment keys.
-      command: << include(scripts/configure-ssh-key.sh) >>
+      command: <<include(scripts/configure-ssh-key.sh)>>

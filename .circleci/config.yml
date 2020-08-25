@@ -4,7 +4,7 @@ version: 2.1
 # release must exist.);
 orbs:
   maven-deploy: wasiqb/maven-deploy@<<pipeline.parameters.dev-orb-version>>
-  orb-tools: circleci/orb-tools@9.0
+  orb-tools: circleci/orb-tools@10.0.0
 
 # Pipeline parameters
 parameters:
@@ -39,6 +39,7 @@ workflows:
       # pack your orb YAML files to a single orb.yml
       # validate the orb.yml file to ensure it is well-formed
       - orb-tools/pack:
+          use-orb-pack: true
           requires:
             - orb-tools/lint
 

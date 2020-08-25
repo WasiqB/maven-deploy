@@ -6,4 +6,4 @@ steps:
   - configure-ssh-key
   - run:
       name: Configure GIT with host fingerprint, user info and SSH key for pushing
-      command: << include(scripts/configure-git.sh) >>
+      command: <<include(scripts/configure-git.sh)>>

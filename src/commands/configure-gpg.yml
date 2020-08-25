@@ -4,4 +4,4 @@ description: >
 steps:
   - run:
       name: Configure GPG private key for signing project artifacts in OSS Sonatype
-      command: << include(scripts/configure-gpg.sh) >>
+      command: <<include(scripts/configure-gpg.sh)>>
