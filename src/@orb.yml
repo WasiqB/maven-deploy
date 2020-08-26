@@ -38,3 +38,6 @@ description: >
 
 display:
   source_url: "https://github.com/WasiqB/maven-deploy"
+
+orbs:
+  slack: circleci/slack@3.4.2
