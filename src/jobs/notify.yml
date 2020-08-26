@@ -16,6 +16,10 @@
 description: >
   Slack integration for workflow notification directly to the Slack channel.
 parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
   mentions:
     type: string
     description: Comma separated list of Slack User ID, without spaces.
@@ -44,6 +48,9 @@ parameters:
     type: string
     default: ""
     description: Comma separated list of branches, without spaces.
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
 steps:
   - notify:
       mentions: << parameters.mentions >>
