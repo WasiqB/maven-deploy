@@ -44,3 +44,12 @@ usage:
             requires:
               - maven-deploy/approve-major-version
             <<: *deploy-command
+        - maven-deploy/notify:
+            filters:
+              branches:
+                only:
+                  - master
+            executor-version: 14-buster
+            webhook: webhook_url
+            mentions: USERID1,USERID2
+            fail_only: true
