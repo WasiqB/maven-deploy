@@ -1,0 +1,27 @@
+description: >
+  Compile and build the Maven project.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  command:
+    type: string
+    default: mvn install -DskipTests
+    description: Maven Build command to execute.
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - build:
+      command: << parameters.command >>
+      attach: << parameters.attach >>
+      persist: << parameters.persist >>

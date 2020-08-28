@@ -1,0 +1,22 @@
+description: >
+  Checkout the repository code.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  checkout:
+    type: boolean
+    description: Should checkout?
+    default: true
+  persist:
+    type: boolean
+    description: Should persist to workspace?
+    default: true
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - code-checkout:
+      checkout: << parameters.checkout >>
+      persist: << parameters.persist >>

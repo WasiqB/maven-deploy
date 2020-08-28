@@ -19,13 +19,34 @@ usage:
   version: 2.1
   orbs:
     maven-deploy: wasiqb/maven-deploy@1.0.0
+  executor: &executor
+    executor-version: 14-buster
   maven-deploy-command: &deploy-command
     deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
     context: RELEASE_PROFILE_XYZ
-    executor-version: 14-buster
+    <<: *executor
   workflows:
     sample_flow:
       jobs:
+        - maven-deploy/checkout:
+            <<: *executor
+        - maven-deploy/resolve-dependency:
+            requires:
+              - maven-deploy/checkout
+            <<: *executor
+        - maven-deploy/build:
+            requires:
+              - maven-deploy/resolve-dependency
+            <<: *executor
+        - maven-deploy/test:
+            requires:
+              - maven-deploy/build
+            <<: *executor
+            result-path: target/surefire-reports
+        - maven-deploy/sonar-analysis:
+            requires:
+              - maven-deploy/test
+            <<: *executor
         - maven-deploy/approve-patch-version:
             type: approval
         - maven-deploy/approve-minor-version:
@@ -44,3 +65,12 @@ usage:
             requires:
               - maven-deploy/approve-major-version
             <<: *deploy-command
+        - maven-deploy/notify:
+            filters:
+              branches:
+                only:
+                  - master
+            <<: *executor
+            webhook: webhook_url
+            mentions: USERID1,USERID2
+            fail_only: true
