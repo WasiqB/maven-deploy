@@ -1,0 +1,27 @@
+description: >
+  Resolve Maven dependencies.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  command:
+    type: string
+    description: Dependency resolve command.
+    default: mvn dependency:resolve
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - resolve-dependency:
+      command: << parameters.command >>
+      attach: << parameters.attach >>
+      persist: << parameters.persist >>

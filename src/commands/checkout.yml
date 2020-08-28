@@ -1,0 +1,18 @@
+description: >
+  Checkout the code from the repository.
+parameters:
+  checkout:
+    type: boolean
+    description: Should checkout?
+    default: true
+  persist:
+    type: boolean
+    description: Persist to workspace.
+    default: true
+steps:
+  - when:
+      condition: << parameters.checkout >>
+      steps:
+        - checkout
+        - persist-workspace:
+            persist: << parameters.persist >>

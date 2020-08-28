@@ -1,0 +1,32 @@
+description: >
+  Run Maven test on the project.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  command:
+    type: string
+    description: Maven command to execute tests.
+    default: mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+  result-path:
+    type: string
+    description: Relative path to XML test result folder.
+    default: target/surefire-reports
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - test:
+      command: << parameters.command >>
+      attach: << parameters.attach >>
+      persist: << parameters.persist >>
+      result-path: << parameters.result-path >>
