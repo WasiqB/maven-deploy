@@ -25,6 +25,10 @@ usage:
     deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
     context: RELEASE_PROFILE_XYZ
     <<: *executor
+    filters:
+      branches:
+        only:
+          - master
   workflows:
     sample_flow:
       jobs:
@@ -47,23 +51,9 @@ usage:
             requires:
               - maven-deploy/test
             <<: *executor
-        - maven-deploy/approve-patch-version:
-            type: approval
-        - maven-deploy/approve-minor-version:
-            type: approval
-        - maven-deploy/approve-major-version:
-            type: approval
-        - maven-deploy/deploy-patch-version:
+        - maven-deploy/deploy:
             requires:
-              - maven-deploy/approve-patch-version
-            <<: *deploy-command
-        - maven-deploy/deploy-minor-version:
-            requires:
-              - maven-deploy/approve-minor-version
-            <<: *deploy-command
-        - maven-deploy/deploy-major-version:
-            requires:
-              - maven-deploy/approve-major-version
+              - maven-deploy/sonar-analysis
             <<: *deploy-command
         - maven-deploy/notify:
             filters:
