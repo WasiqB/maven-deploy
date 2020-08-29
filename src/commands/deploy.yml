@@ -16,12 +16,6 @@
 description: >
   Deploy artifacts to Maven central and also create release tag in GitHub.
 parameters:
-  version-snapshot-command:
-    type: string
-    description: "Snapshot version for the deployment."
-  version-command:
-    type: string
-    description: "Release version for the deployment."
   deploy-command:
     type: string
     description: "Maven deploy command to execute."
@@ -31,9 +25,13 @@ steps:
   - configure-gpg
   - configure-git
   - run:
+      name: Set Semver release type
+      command: << include(scripts/set-semver-type.sh) >>
+  - run:
       environment:
-        VERSION_SNAPSHOT_COMMAND: << parameters.version-snapshot-command >>
         DEPLOY_COMMAND: << parameters.deploy-command >>
-        VERSION_COMMAND: << parameters.version-command >>
-      name: Release new version to Maven Central and push new project version to repo
+      name: Release new version to Maven Central
       command: << include(scripts/deploy.sh) >>
+  - run:
+      name: Push new version to GitHub
+      command: << include(scripts/push-version.sh) >>
