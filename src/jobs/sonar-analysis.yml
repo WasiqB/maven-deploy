@@ -1,0 +1,27 @@
+description: >
+  Run Maven Sonar analysis for the project using the coverage test results.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  command:
+    type: string
+    description: Sonar analysis command to execute.
+    default: mvn package sonar:sonar -Dsonar.host.url=$SONAR_HOST -Dsonar.organization=$SONAR_ORG -Dsonar.login=$SONAR_KEY -DskipTests -Dsonar.branch.name=$CIRCLE_BRANCH
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - sonar-analysis:
+      command: << parameters.command >>
+      attach: << parameters.attach >>
+      persist: << parameters.persist >>

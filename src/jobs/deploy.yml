@@ -14,24 +14,18 @@
 # limitations under the License.
 #
 description: >
-  Deploy artifacts to Maven central and also create release tag in GitHub.
+  This job will update and publish the major version of the release.
 parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
   deploy-command:
     type: string
     description: "Maven deploy command to execute."
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
 steps:
-  - attach_workspace:
-      at: .
-  - configure-gpg
-  - configure-git
-  - run:
-      name: Set Semver release type
-      command: << include(scripts/set-semver-type.sh) >>
-  - run:
-      environment:
-        DEPLOY_COMMAND: << parameters.deploy-command >>
-      name: Release new version to Maven Central
-      command: << include(scripts/deploy.sh) >>
-  - run:
-      name: Push new version to GitHub
-      command: << include(scripts/push-version.sh) >>
+  - deploy:
+      deploy-command: << parameters.deploy-command >>

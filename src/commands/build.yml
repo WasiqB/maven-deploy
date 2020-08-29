@@ -1,0 +1,23 @@
+description: >
+  Compile and build the Maven project.
+parameters:
+  command:
+    type: string
+    default: mvn install -DskipTests
+    description: Maven Build command to execute.
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+steps:
+  - attach-workspace:
+      attach: << parameters.attach >>
+  - run:
+      name: Build project
+      command: << parameters.command >>
+  - persist-workspace:
+      persist: << parameters.persist >>

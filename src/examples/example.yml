@@ -1,31 +1,66 @@
+#
+# Copyright (c) 2020 Wasiq Bhamla.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
 description: >
   Sample workflow for deploying to Maven central.
 usage:
   version: 2.1
   orbs:
     maven-deploy: wasiqb/maven-deploy@1.0.0
+  executor: &executor
+    executor-version: 14-buster
   maven-deploy-command: &deploy-command
     deploy-command: mvn deploy --settings .circleci/settings.xml -DskipTests -Dcheckstyle.skip -B -Prelease
     context: RELEASE_PROFILE_XYZ
-    executor-version: 14-buster
+    <<: *executor
+    filters:
+      branches:
+        only:
+          - master
   workflows:
     sample_flow:
       jobs:
-        - maven-deploy/approve-patch-version:
-            type: approval
-        - maven-deploy/approve-minor-version:
-            type: approval
-        - maven-deploy/approve-major-version:
-            type: approval
-        - maven-deploy/deploy-patch-version:
+        - maven-deploy/checkout:
+            <<: *executor
+        - maven-deploy/resolve-dependency:
             requires:
-              - maven-deploy/approve-patch-version
-            <<: *deploy-command
-        - maven-deploy/deploy-minor-version:
+              - maven-deploy/checkout
+            <<: *executor
+        - maven-deploy/build:
             requires:
-              - maven-deploy/approve-minor-version
-            <<: *deploy-command
-        - maven-deploy/deploy-major-version:
+              - maven-deploy/resolve-dependency
+            <<: *executor
+        - maven-deploy/test:
             requires:
-              - maven-deploy/approve-major-version
+              - maven-deploy/build
+            <<: *executor
+            result-path: target/surefire-reports
+        - maven-deploy/sonar-analysis:
+            requires:
+              - maven-deploy/test
+            <<: *executor
+        - maven-deploy/deploy:
+            requires:
+              - maven-deploy/sonar-analysis
             <<: *deploy-command
+        - maven-deploy/notify:
+            filters:
+              branches:
+                only:
+                  - master
+            <<: *executor
+            webhook: webhook_url
+            mentions: USERID1,USERID2
+            fail_only: true

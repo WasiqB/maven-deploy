@@ -1,0 +1,23 @@
+description: >
+  Run Maven Sonar analysis for the project using the coverage test results.
+parameters:
+  command:
+    type: string
+    description: Command to execute.
+    default: mvn package sonar:sonar -Dsonar.host.url=$SONAR_HOST -Dsonar.organization=$SONAR_ORG -Dsonar.login=$SONAR_KEY -DskipTests -Dsonar.branch.name=$CIRCLE_BRANCH
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+steps:
+  - attach-workspace:
+      attach: << parameters.attach >>
+  - run:
+      name: Run Sonar code Analysis
+      command: << parameters.command >>
+  - persist-workspace:
+      persist: << parameters.persist >>

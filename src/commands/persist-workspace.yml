@@ -1,0 +1,15 @@
+description: >
+  Persist to workspace.
+parameters:
+  persist:
+    type: boolean
+    description: Should persist?
+    default: true
+steps:
+  - when:
+      condition: << parameters.persist >>
+      steps:
+        - persist_to_workspace:
+            root: .
+            paths:
+              - .

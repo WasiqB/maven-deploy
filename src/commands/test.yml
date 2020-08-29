@@ -1,0 +1,29 @@
+description: >
+  Run Maven test on the project.
+parameters:
+  command:
+    type: string
+    description: Maven command to execute tests.
+    default: mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+  result-path:
+    type: string
+    description: Relative path to XML test result folder.
+    default: target/surefire-reports
+steps:
+  - attach-workspace:
+      attach: << parameters.attach >>
+  - run:
+      name: Run Tests with Sonar Coverage
+      command: << parameters.command >>
+  - store_test_results:
+      path: << parameters.result-path >>
+  - persist-workspace:
+      persist: << parameters.persist >>

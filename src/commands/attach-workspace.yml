@@ -1,0 +1,13 @@
+description: >
+  Attach to workspace.
+parameters:
+  attach:
+    type: boolean
+    description: Should attach to workspace?
+    default: true
+steps:
+  - when:
+      condition: << parameters.attach >>
+      steps:
+        - attach_workspace:
+            at: .

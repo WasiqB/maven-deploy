@@ -1,0 +1,23 @@
+description: >
+  Resolve Maven dependencies.
+parameters:
+  command:
+    type: string
+    description: Dependency resolve command.
+    default: mvn dependency:resolve
+  attach:
+    type: boolean
+    description: Attach the workspace.
+    default: true
+  persist:
+    type: boolean
+    description: Persist command to workspace.
+    default: true
+steps:
+  - attach-workspace:
+      attach: << parameters.attach >>
+  - run:
+      name: Resolve Dependencies
+      command: << parameters.command >>
+  - persist-workspace:
+      persist: << parameters.persist >>

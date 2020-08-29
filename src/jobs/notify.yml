@@ -1,0 +1,62 @@
+#
+# Copyright (c) 2020 Wasiq Bhamla.
+#
+# Licensed under the Apache License, Version 2.0 (the "License");
+# you may not use this file except in compliance with the License.
+# You may obtain a copy of the License at
+#
+#     http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS,
+# WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+# See the License for the specific language governing permissions and
+# limitations under the License.
+#
+description: >
+  Slack integration for workflow notification directly to the Slack channel.
+parameters:
+  executor-version:
+    type: string
+    default: 11-jdk-stretch
+    description: Default executor image version.
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ""
+  webhook:
+    type: string
+    description: Webhook for Slack channel to post to.
+    default: ${SLACK_WEBHOOK}
+  include_project:
+    type: boolean
+    default: true
+    description: Show project field in message?
+  include_job_id:
+    type: boolean
+    default: true
+    description: Show Job ID in message?
+  include_visit_job:
+    type: boolean
+    default: true
+    description: Show visit job details in message?
+  fail_only:
+    type: boolean
+    default: false
+    description: Notify only for Failed build.
+  for_branches:
+    type: string
+    default: ""
+    description: Comma separated list of branches, without spaces.
+executor:
+  name: maven
+  tag: << parameters.executor-version >>
+steps:
+  - notify:
+      mentions: << parameters.mentions >>
+      webhook: << parameters.webhook >>
+      include_project: << parameters.include_project >>
+      include_job_id: << parameters.include_job_id >>
+      include_visit_job: << parameters.include_visit_job >>
+      fail_only: << parameters.fail_only >>
+      for_branches: << parameters.for_branches >>
