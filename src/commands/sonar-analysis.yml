@@ -4,7 +4,7 @@ parameters:
   command:
     type: string
     description: Command to execute.
-    default: mvn org.jacoco:jacoco-maven-plugin:prepare-agent install -Pcoverage-per-test
+    default: mvn package sonar:sonar -Dsonar.host.url=$SONAR_HOST -Dsonar.organization=$SONAR_ORG -Dsonar.login=$SONAR_KEY -DskipTests -Dsonar.branch.name=$CIRCLE_BRANCH
   attach:
     type: boolean
     description: Attach the workspace.
