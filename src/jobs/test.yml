@@ -21,6 +21,14 @@ parameters:
     type: string
     description: Relative path to XML test result folder.
     default: target/surefire-reports
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ${SLACK_MENTIONS}
+  fail_only:
+    type: boolean
+    default: true
+    description: Notify only for Failed job.
 executor:
   name: maven
   tag: << parameters.executor-version >>
@@ -30,3 +38,5 @@ steps:
       attach: << parameters.attach >>
       persist: << parameters.persist >>
       result-path: << parameters.result-path >>
+      mentions: << parameters.mentions >>
+      fail_only: << parameters.fail_only >>

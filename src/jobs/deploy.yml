@@ -23,9 +23,19 @@ parameters:
   deploy-command:
     type: string
     description: "Maven deploy command to execute."
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ${SLACK_MENTIONS}
+  fail_only:
+    type: boolean
+    default: true
+    description: Notify only for Failed job.
 executor:
   name: maven
   tag: << parameters.executor-version >>
 steps:
   - deploy:
       deploy-command: << parameters.deploy-command >>
+      mentions: << parameters.mentions >>
+      fail_only: << parameters.fail_only >>

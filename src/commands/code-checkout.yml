@@ -12,7 +12,7 @@ parameters:
   mentions:
     type: string
     description: Comma separated list of Slack User ID, without spaces.
-    default: ""
+    default: ${SLACK_MENTIONS}
   fail_only:
     type: boolean
     default: true
