@@ -19,7 +19,7 @@ parameters:
   mentions:
     type: string
     description: Comma separated list of Slack User ID, without spaces.
-    default: ""
+    default: ${SLACK_MENTIONS}
   webhook:
     type: string
     description: Webhook for Slack channel to post to.

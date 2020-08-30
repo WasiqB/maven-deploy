@@ -13,6 +13,14 @@ parameters:
     type: boolean
     description: Should persist to workspace?
     default: true
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ${SLACK_MENTIONS}
+  fail_only:
+    type: boolean
+    default: true
+    description: Notify only for Failed job.
 executor:
   name: maven
   tag: << parameters.executor-version >>
@@ -20,3 +28,5 @@ steps:
   - code-checkout:
       checkout: << parameters.checkout >>
       persist: << parameters.persist >>
+      mentions: << parameters.mentions >>
+      fail_only: << parameters.fail_only >>
