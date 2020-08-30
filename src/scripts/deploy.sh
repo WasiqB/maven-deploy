@@ -1,4 +1,4 @@
-case "$SEMVER_INCREMENT" in
+case "$VERSION_INCREMENT" in
 "major")
   VERSION_COMMAND="mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.0.0 versions:commit"
   VERSION_SNAPSHOT_COMMAND="mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.nextMajorVersion}.0.0-SNAPSHOT versions:commit"
@@ -10,6 +10,9 @@ case "$SEMVER_INCREMENT" in
 "patch")
   VERSION_COMMAND="mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.incrementalVersion} versions:commit"
   VERSION_SNAPSHOT_COMMAND="mvn build-helper:parse-version versions:set -DnewVersion=\${parsedVersion.majorVersion}.\${parsedVersion.minorVersion}.\${parsedVersion.nextIncrementalVersion}-SNAPSHOT versions:commit"
+  ;;
+*)
+  exit 0
   ;;
 esac
 
