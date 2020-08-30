@@ -1,3 +1,6 @@
+if [ -z "${VERSION_INCREMENT}" ] || [ "$VERSION_INCREMENT" == "skip" ]; then
+  exit 0
+fi
 echo "Pushing new version and tag..."
 rm .circleci/gpg-ci
 git add pom.xml

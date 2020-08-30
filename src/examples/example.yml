@@ -32,11 +32,11 @@ usage:
   workflows:
     sample_flow:
       jobs:
-        - maven-deploy/checkout:
+        - maven-deploy/code-checkout:
             <<: *executor
         - maven-deploy/resolve-dependency:
             requires:
-              - maven-deploy/checkout
+              - maven-deploy/code-checkout
             <<: *executor
         - maven-deploy/build:
             requires:
