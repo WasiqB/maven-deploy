@@ -39,7 +39,7 @@ parameters:
   fail_only:
     type: boolean
     default: false
-    description: Notify only for Failed build.
+    description: Notify only for Failed job.
   for_branches:
     type: string
     default: ""
@@ -48,12 +48,8 @@ steps:
   - slack/status:
       mentions: << parameters.mentions >>
       webhook: << parameters.webhook >>
-#      success_message: ""
-#      failure_message: ""
-#      success_only: "true"
       fail_only: << parameters.fail_only >>
       only_for_branches: << parameters.for_branches >>
       include_project_field: << parameters.include_project >>
       include_job_number_field: << parameters.include_job_id >>
       include_visit_job_action: << parameters.include_visit_job >>
-#      channel: ""

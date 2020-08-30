@@ -17,6 +17,14 @@ parameters:
     type: string
     description: Relative path to XML test result folder.
     default: target/surefire-reports
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ""
+  fail_only:
+    type: boolean
+    default: true
+    description: Notify only for Failed job.
 steps:
   - attach-workspace:
       attach: << parameters.attach >>
@@ -27,3 +35,6 @@ steps:
       path: << parameters.result-path >>
   - persist-workspace:
       persist: << parameters.persist >>
+  - notify:
+      mentions: << parameters.mentions >>
+      fail_only: << parameters.fail_only >>

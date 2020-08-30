@@ -55,12 +55,3 @@ usage:
             requires:
               - maven-deploy/sonar-analysis
             <<: *deploy-command
-        - maven-deploy/notify:
-            filters:
-              branches:
-                only:
-                  - master
-            <<: *executor
-            webhook: webhook_url
-            mentions: USERID1,USERID2
-            fail_only: true

@@ -13,6 +13,14 @@ parameters:
     type: boolean
     description: Persist command to workspace.
     default: true
+  mentions:
+    type: string
+    description: Comma separated list of Slack User ID, without spaces.
+    default: ""
+  fail_only:
+    type: boolean
+    default: true
+    description: Notify only for Failed job.
 steps:
   - attach-workspace:
       attach: << parameters.attach >>
@@ -21,3 +29,6 @@ steps:
       command: << parameters.command >>
   - persist-workspace:
       persist: << parameters.persist >>
+  - notify:
+      mentions: << parameters.mentions >>
+      fail_only: << parameters.fail_only >>
