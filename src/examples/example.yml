@@ -18,7 +18,7 @@ description: >
 usage:
   version: 2.1
   orbs:
-    maven-deploy: wasiqb/maven-deploy@1.0.0
+    maven-deploy: wasiqb/maven-deploy@<< pipeline.parameters.dev-orb-version >>
   executor: &executor
     executor-version: 14-buster
   maven-deploy-command: &deploy-command

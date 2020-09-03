@@ -15,7 +15,7 @@
 #
 version: 2.1
 
-description: >
+description: >-
   Reusable Maven deployment ORB to release artifact to Maven central as well as
   create Tag on GitHub.
 
@@ -35,6 +35,8 @@ description: >
 
   - GITHUB_COMMIT_KEY: Base64 private SSH key for the corresponding public key mapped to the repository deployment
   keys on GitHub.
+
+  For Slack notification, SLACK_WEBHOOK environment variable should be made in project settings.
 
 display:
   source_url: "https://github.com/WasiqB/maven-deploy"
