@@ -23,7 +23,7 @@ parameters:
   webhook:
     type: string
     description: Webhook for Slack channel to post to.
-    default: ${SLACK_WEBHOOK}
+    default: ""
   include_project:
     type: boolean
     default: true
