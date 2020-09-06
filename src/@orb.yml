@@ -36,7 +36,7 @@ description: >-
   - GITHUB_COMMIT_KEY: Base64 private SSH key for the corresponding public key mapped to the repository deployment
   keys on GitHub.
 
-  For Slack notification, SLACK_WEBHOOK environment variable should be made in project settings.
+  For Slack notification, SLACK_WEBHOOK environment variable should be available in project settings.
 
 display:
   source_url: "https://github.com/WasiqB/maven-deploy"
