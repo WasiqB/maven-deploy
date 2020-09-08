@@ -23,7 +23,7 @@ parameters:
   webhook:
     type: string
     description: Webhook for Slack channel to post to.
-    default: ""
+    default: "[[ ! -z \"$SLACK_WEBHOOK\" ]] && $SLACK_WEBHOOK || \"\""
   include_project:
     type: boolean
     default: true
