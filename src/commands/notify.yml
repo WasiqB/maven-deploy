@@ -19,11 +19,11 @@ parameters:
   mentions:
     type: string
     description: Comma separated list of Slack User ID, without spaces.
-    default: ${SLACK_MENTIONS:=""}
+    default: "${SLACK_MENTIONS:=}"
   webhook:
     type: string
     description: Webhook for Slack channel to post to.
-    default: ${SLACK_WEBHOOK:=""}
+    default: "${SLACK_WEBHOOK:=NA}"
   include_project:
     type: boolean
     default: true
@@ -46,8 +46,14 @@ parameters:
     description: Comma separated list of branches, without spaces.
 steps:
   - when:
-      condition: << parameters.webhook >>
+      condition:
+        not:
+          equal: [ NA, << parameters.webhook >> ]
       steps:
+        - run:
+            name: Debug step.
+            command: |
+              echo "Webhook: [ << parameters.webhook >> ]"
         - slack/status:
             mentions: << parameters.mentions >>
             webhook: << parameters.webhook >>
