@@ -1,6 +1,6 @@
 # maven-deploy Orb 
 
-[![CircleCI Build Status](https://circleci.com/gh/WasiqB/maven-deploy.svg?style=shield "CircleCI Build Status")](https://circleci.com/gh/WasiqB/maven-deploy)
+[![CircleCI Build Status](https://circleci.com/gh/WasiqB/maven-deploy.svg?style=svg "CircleCI Build Status")](https://circleci.com/gh/WasiqB/maven-deploy)
 [![CircleCI Orb Version](https://img.shields.io/badge/endpoint.svg?url=https://badges.circleci.io/orb/wasiqb/maven-deploy)](https://circleci.com/orbs/registry/orb/wasiqb/maven-deploy)
 [![License](https://img.shields.io/badge/License-Apache%202.0-blue.svg)](https://opensource.org/licenses/Apache-2.0)
 [![CircleCI Community](https://img.shields.io/badge/community-CircleCI%20Discuss-343434.svg)](https://discuss.circleci.com/c/ecosystem/orbs)

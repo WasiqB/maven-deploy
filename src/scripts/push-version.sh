@@ -4,7 +4,7 @@ fi
 echo "Pushing new version and tag..."
 git add pom.xml
 git commit -m "Released v${MVN_VERSION} [skip ci]"
-git tag -s v${MVN_VERSION} -m "Released v${MVN_VERSION}"
+git tag v${MVN_VERSION} -m "Released v${MVN_VERSION}"
 ssh-agent sh -c 'ssh-add ~/.ssh/id_rsa; git push $CIRCLE_REPOSITORY_URL'
 ssh-agent sh -c 'ssh-add ~/.ssh/id_rsa; git push origin --tags'
 rm .circleci/gpg-ci
