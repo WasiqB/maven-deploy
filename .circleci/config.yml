@@ -4,7 +4,7 @@ version: 2.1
 # release must exist.);
 orbs:
   maven-deploy: wasiqb/maven-deploy@<<pipeline.parameters.dev-orb-version>>
-  orb-tools: circleci/orb-tools@10.0.0
+  orb-tools: circleci/orb-tools@10.0.4
 
 # Pipeline parameters
 parameters:
@@ -15,7 +15,7 @@ parameters:
     default: false
   dev-orb-version:
     type: string
-    default: "dev:alpha"
+    default: "dev:${CIRCLE_SHA1:0:7}"
 
 jobs:
   # This job is an example of an integration testing job.
