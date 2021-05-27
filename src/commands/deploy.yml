@@ -21,8 +21,8 @@ parameters:
     description: "Maven deploy command to execute."
   mentions:
     type: string
-    description: Comma separated list of Slack User ID, without spaces.
-    default: ${SLACK_MENTIONS}
+    description: Comma separated list of Discord User ID, without spaces.
+    default: ${DISCORD_MENTIONS}
   fail_only:
     type: boolean
     default: true

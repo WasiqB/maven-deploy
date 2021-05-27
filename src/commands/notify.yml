@@ -14,28 +14,16 @@
 # limitations under the License.
 #
 description: >
-  Slack integration for workflow notification directly to the Slack channel.
+  Discord integration for workflow notification directly to the Discord channel.
 parameters:
   mentions:
     type: string
-    description: Comma separated list of Slack User ID, without spaces.
-    default: "${SLACK_MENTIONS:=}"
+    description: Comma separated list of Discord User ID, without spaces.
+    default: ""
   webhook:
     type: string
-    description: Webhook for Slack channel to post to.
-    default: "${SLACK_WEBHOOK:=NA}"
-  include_project:
-    type: boolean
-    default: true
-    description: Show project field in message?
-  include_job_id:
-    type: boolean
-    default: true
-    description: Show Job ID in message?
-  include_visit_job:
-    type: boolean
-    default: true
-    description: Show visit job details in message?
+    description: Webhook for Discord channel to post to.
+    default: "${DISCORD_WEBHOOK:=NA}"
   fail_only:
     type: boolean
     default: false
@@ -50,15 +38,8 @@ steps:
         not:
           equal: [ NA, << parameters.webhook >> ]
       steps:
-        - run:
-            name: Debug step.
-            command: |
-              echo "Webhook: [ << parameters.webhook >> ]"
-        - slack/status:
+        - discord/status:
             mentions: << parameters.mentions >>
             webhook: << parameters.webhook >>
             fail_only: << parameters.fail_only >>
             only_for_branches: << parameters.for_branches >>
-            include_project_field: << parameters.include_project >>
-            include_job_number_field: << parameters.include_job_id >>
-            include_visit_job_action: << parameters.include_visit_job >>
