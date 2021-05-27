@@ -51,7 +51,10 @@ workflows:
       # if using Contexts, add your context below
       - orb-tools/publish-dev:
           orb-name: wasiqb/maven-deploy
+          publish-alpha-version: true
+          publish-sha-version: true
           requires:
+            - orb-tools/lint
             - orb-tools/pack
 
       # trigger an integration workflow to test the
@@ -92,3 +95,17 @@ workflows:
           filters:
             branches:
               only: master
+
+  keep-dev-orb:
+    triggers:
+      - schedule:
+          cron: "0 0 0 1 1/1 ? *"
+          filters:
+            branches:
+              only:
+                - master
+    jobs:
+      - orb-tools/publish-dev:
+          orb-name: wasiqb/maven-deploy
+          publish-alpha-version: true
+          publish-sha-version: false
